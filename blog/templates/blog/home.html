@@ -1,0 +1,103 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+<div class="carousel">
+    <div class="mySlides">
+        <img src="{% static 'blog/img/PastelGrande.jpg' %}" alt="Pastel Central">
+        <div class="text">
+            <h2>Pasteles Muy Ricos y exquisitos</h2>
+            <p>Ven y prueba nuestros ricos pasteles</p>
+        </div>
+    </div>
+
+    <div class="mySlides fade">
+        <img src="{% static 'blog/img/grande.jpg' %}" alt="Otro Pastel">
+        <div class="text">
+            <h2>Pasteles de alta calidad, escogenos</h2>
+            <p>No esperes más, ven y prueba nuestros pasteles </p>
+        </div>
+    </div>
+
+    <div class="mySlides fade">
+        <img src="{% static 'blog/img/PastelDeBoda.jpg' %}" alt="Tom">
+        <div class="text">
+            <h2>Preparados con los mejores ingredientes</h2>
+            <p>Nuestros pasteles son preparados con los mayores estandares de calidad del mercado</p>
+        </div>
+    </div>
+
+    <a class="prev" tabindex="5" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" tabindex="6" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+<br>
+
+<div class="info">
+    <div class="rescue">
+        <div class="photo">
+            <img src="{% static 'blog/img/1.jpg' %}" alt="">
+        </div>
+        <div class="text">
+            <h2>No te arrepentirás de probarlos, te encantarán</h2>
+            <p>No dejes ni uno!, ven y pruebalos!</p>
+        </div>
+    </div>
+    <div class="crowfunding">
+        <div class="photo">
+            <img src="{% static 'blog/img/2.jpg' %}" alt="">
+        </div>
+        <div class="text">
+            <h2>El mayor sabor con la receta de la abuelita</h2>
+            <p>Nuestros pasteles de alta calidad esperan por ti, a bajo costo y muy ricos</p>
+        </div>
+    </div>
+</div>
+<h2>Productos disponibles</h2>
+<div id="gallery">
+    <div class="card">
+        <img id="wifi" src="{% static 'blog/img/PastelDeCumpleaños.jpg' %}" alt="Wifi" class="image">
+        <div class="text">
+            <p>Pasteles para cualquier ocasión</p>
+        </div>
+    </div>
+    <div class="card">
+        <img id="maya" src="{% static 'blog/img/PastelNormal.jpg' %}" alt="Maya" class="image">
+        <div class="text">
+            <p>Pasteles para la familia y para la visita</p>
+        </div>
+    </div>
+    <div class="card">
+        <img id="oso" src="{% static 'blog/img/PastelPequeño.jpg' %}" alt="Oso" class="image">
+
+        <div class="text">
+            <p>Pasteles para el día a día y tu colación</p>
+        </div>
+    </div>
+    <div class="card">
+
+        <img id="luna" src="{% static 'blog/img/PastelEstudiante.jpg' %}" alt="Luna" class="image">
+        <div class="text">
+            <p>Pasteles para comer donde quieras y con quien quieras</p>
+        </div>
+    </div>
+</div>
+{% if posts|length > 0 %}
+{% endif %}
+<div id="gallery">
+    {% for post in posts %}
+    <div class="card">
+        <img src="{{ post.picture.url }}">
+        <div class="text">
+            <p>{{ post.name }}</p>
+            <p>{{ post.breed }}</p>
+            <p>{{ post.description }}</p>
+            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'adopt' post.id %}" tabindex="14">Comprar</a>
+            {% if user.is_superuser %}
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}" tabindex="14">Borrar</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}" tabindex="14">Actualizar</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
